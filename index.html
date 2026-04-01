@@ -664,6 +664,193 @@
     20% { transform: translateX(-5px); }
     60% { transform: translateX(5px); }
   }
+
+  /* ===== Calendar Heatmap ===== */
+  .calendar-section {
+    margin-bottom: 32px;
+  }
+  .calendar-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 16px;
+  }
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .calendar-header .cal-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .calendar-nav-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--text-mid);
+    font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s;
+  }
+  .calendar-nav-btn:active { background: var(--bg-warm); }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  .cal-weekday {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-soft);
+    padding: 2px 0;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-cell {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    min-height: 32px;
+  }
+  .cal-cell:active { transform: scale(0.9); }
+  .cal-cell.empty { cursor: default; }
+  .cal-cell.empty:active { transform: none; }
+  .cal-cell.no-data {
+    background: var(--bg-warm);
+    color: var(--text-soft);
+  }
+  .cal-cell.today.no-data {
+    box-shadow: inset 0 0 0 1.5px var(--text-soft);
+  }
+  .cal-cell.free {
+    background: var(--sage-pale);
+    color: var(--sage-deep);
+  }
+  .cal-cell.today.free {
+    box-shadow: inset 0 0 0 1.5px var(--sage-deep);
+  }
+  .cal-cell.pain-low {
+    background: var(--rose-pale);
+    color: var(--rose-deep);
+  }
+  .cal-cell.pain-mid {
+    background: var(--rose);
+    color: #fff;
+  }
+  .cal-cell.pain-high {
+    background: var(--rose-deep);
+    color: #fff;
+  }
+  .cal-cell.today.pain-low,
+  .cal-cell.today.pain-mid,
+  .cal-cell.today.pain-high {
+    box-shadow: inset 0 0 0 1.5px var(--text);
+  }
+  .cal-cell.future {
+    background: transparent;
+    color: var(--border);
+    cursor: default;
+  }
+  .cal-cell.future:active { transform: none; }
+
+  .cal-legend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .cal-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: var(--text-soft);
+  }
+  .cal-legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .cal-legend-dot.l-free { background: var(--sage-pale); }
+  .cal-legend-dot.l-low { background: var(--rose-pale); }
+  .cal-legend-dot.l-mid { background: var(--rose); }
+  .cal-legend-dot.l-high { background: var(--rose-deep); }
+  .cal-legend-dot.l-none { background: var(--bg-warm); }
+
+  .cal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .cal-free-btn {
+    background: none;
+    border: none;
+    font-size: 12px;
+    color: var(--sage-deep);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 500;
+    padding: 6px 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.2s;
+  }
+  .cal-free-btn:active { opacity: 0.6; }
+
+  /* ===== Backfill sheet ===== */
+  .backfill-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .backfill-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 52px;
+  }
+  .backfill-opt:active { transform: scale(0.98); opacity: 0.8; }
+  .backfill-opt .bf-emoji { font-size: 22px; }
+  .backfill-opt .bf-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .backfill-opt .bf-sub {
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-top: 2px;
+  }
 </style>
 </head>
 <body>
@@ -703,6 +890,37 @@
         <div class="label">本月</div>
         <div class="value" id="stat-month-count">0</div>
         <div class="sub" id="stat-month-trigger">-</div>
+      </div>
+    </div>
+
+    <!-- Calendar Heatmap -->
+    <div class="calendar-section">
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button class="calendar-nav-btn" onclick="calNavPrev()">&lsaquo;</button>
+          <span class="cal-title" id="cal-title"></span>
+          <button class="calendar-nav-btn" onclick="calNavNext()">&rsaquo;</button>
+        </div>
+        <div class="cal-weekdays">
+          <div class="cal-weekday">一</div>
+          <div class="cal-weekday">二</div>
+          <div class="cal-weekday">三</div>
+          <div class="cal-weekday">四</div>
+          <div class="cal-weekday">五</div>
+          <div class="cal-weekday">六</div>
+          <div class="cal-weekday">日</div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-footer">
+          <div class="cal-legend">
+            <div class="cal-legend-item"><div class="cal-legend-dot l-free"></div>无头痛</div>
+            <div class="cal-legend-item"><div class="cal-legend-dot l-low"></div>轻</div>
+            <div class="cal-legend-item"><div class="cal-legend-dot l-mid"></div>中</div>
+            <div class="cal-legend-item"><div class="cal-legend-dot l-high"></div>重</div>
+            <div class="cal-legend-item"><div class="cal-legend-dot l-none"></div>未记录</div>
+          </div>
+          <button class="cal-free-btn" id="cal-free-btn" onclick="markTodayFree()">今天没头痛 &#10003;</button>
+        </div>
       </div>
     </div>
 
@@ -862,6 +1080,72 @@
   <button class="sheet-submit end-btn" onclick="submitEnd()">结束记录</button>
 </div>
 
+<!-- ===== Backfill Sheet ===== -->
+<div class="sheet" id="sheet-backfill">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="backfill-title">补记</div>
+  <div class="backfill-options">
+    <div class="backfill-opt" onclick="backfillFree()">
+      <span class="bf-emoji">🌿</span>
+      <div>
+        <div class="bf-text">这天没有头痛</div>
+        <div class="bf-sub">标记为无头痛日</div>
+      </div>
+    </div>
+    <div class="backfill-opt" onclick="backfillHeadache()">
+      <span class="bf-emoji">😣</span>
+      <div>
+        <div class="bf-text">这天有头痛</div>
+        <div class="bf-sub">补记一条头痛记录</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Backfill Headache Sheet ===== -->
+<div class="sheet" id="sheet-backfill-headache">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="backfill-h-title">补记头痛</div>
+
+  <div class="sheet-section">
+    <div class="sheet-label">疼痛程度</div>
+    <div class="severity-grid" id="backfill-severity">
+      <div class="severity-opt" data-val="mild" onclick="pickSeverity(this,'backfill')">
+        <span class="sev-emoji">😐</span>轻微
+      </div>
+      <div class="severity-opt" data-val="moderate" onclick="pickSeverity(this,'backfill')">
+        <span class="sev-emoji">😣</span>中等
+      </div>
+      <div class="severity-opt" data-val="severe" onclick="pickSeverity(this,'backfill')">
+        <span class="sev-emoji">😖</span>严重
+      </div>
+      <div class="severity-opt" data-val="extreme" onclick="pickSeverity(this,'backfill')">
+        <span class="sev-emoji">🤯</span>极强
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <div class="sheet-label">可能的诱因</div>
+    <div class="tag-grid" id="backfill-triggers">
+      <div class="tag-btn" data-val="period" onclick="toggleTag(this)">🩸 月经</div>
+      <div class="tag-btn" data-val="exercise" onclick="toggleTag(this)">🏃 运动</div>
+      <div class="tag-btn" data-val="alcohol" onclick="toggleTag(this)">🍷 喝酒</div>
+      <div class="tag-btn" data-val="late_sleep" onclick="toggleTag(this)">🌙 睡太晚</div>
+      <div class="tag-btn" data-val="oversleep" onclick="toggleTag(this)">😴 睡太多</div>
+      <div class="tag-btn" data-val="weather" onclick="toggleTag(this)">🌧 天气</div>
+      <div class="tag-btn" data-val="other" onclick="toggleTag(this)">💭 其他</div>
+    </div>
+  </div>
+
+  <div class="sheet-section">
+    <div class="sheet-label">碎碎念</div>
+    <input class="note-input" id="backfill-note" placeholder="随便写点什么..." maxlength="200">
+  </div>
+
+  <button class="sheet-submit" onclick="submitBackfillHeadache()">保存记录</button>
+</div>
+
 <script>
 // ===== Data Layer =====
 const STORAGE_KEY = 'headache_records';
@@ -886,7 +1170,7 @@ const TRIGGER_MAP = { period: '月经', exercise: '运动', alcohol: '喝酒', l
 const RELIEF_MAP = { painkiller: '止痛药', sleep: '睡觉', shower: '洗澡', getup: '起床', eat: '吃饭', goout: '出门', exercise: '运动' };
 
 // ===== State =====
-let currentSheetSeverity = { start: null, end: null };
+let currentSheetSeverity = { start: null, end: null, backfill: null };
 let durationTimer = null;
 let liveTimer = null;
 
@@ -1033,6 +1317,7 @@ function updateUI() {
   updateDateLine();
   updateHeroButton();
   updateStats();
+  renderCalendar();
   updateRecentList();
   updateHistoryList();
   updateTrends();
@@ -1206,6 +1491,212 @@ function renderTagStats(elId, records, field, labelMap) {
   ).join('');
 }
 
+// ===== Calendar Heatmap =====
+const FREE_DAYS_KEY = 'headache_free_days';
+let calYear, calMonth; // 0-indexed month
+
+function getFreeDays() {
+  return JSON.parse(localStorage.getItem(FREE_DAYS_KEY) || '[]');
+}
+function saveFreeDays(days) {
+  localStorage.setItem(FREE_DAYS_KEY, JSON.stringify(days));
+}
+
+function initCalendar() {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+}
+
+function calNavPrev() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+function calNavNext() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+}
+
+function toDateStr(y, m, d) {
+  return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+}
+
+function severityToNum(sev) {
+  return { mild: 1, moderate: 2, severe: 3, extreme: 4 }[sev] || 2;
+}
+
+function renderCalendar() {
+  const titleEl = document.getElementById('cal-title');
+  titleEl.textContent = calYear + '年' + (calMonth + 1) + '月';
+
+  const grid = document.getElementById('cal-grid');
+  const records = getRecords();
+  const freeDays = getFreeDays();
+  const now = new Date();
+  const todayStr = toDateStr(now.getFullYear(), now.getMonth(), now.getDate());
+
+  // Build a map: dateStr -> max severity number
+  const dayMap = {};
+  records.forEach(r => {
+    const d = new Date(r.startTime);
+    const ds = toDateStr(d.getFullYear(), d.getMonth(), d.getDate());
+    const sn = severityToNum(r.severity);
+    dayMap[ds] = Math.max(dayMap[ds] || 0, sn);
+  });
+
+  // First day of month, and what weekday it is (Mon=0)
+  const firstDay = new Date(calYear, calMonth, 1);
+  const startWeekday = (firstDay.getDay() + 6) % 7; // Mon=0
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+  let html = '';
+  // Empty cells before first day
+  for (let i = 0; i < startWeekday; i++) {
+    html += '<div class="cal-cell empty"></div>';
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = toDateStr(calYear, calMonth, d);
+    const cellDate = new Date(calYear, calMonth, d);
+    const isToday = ds === todayStr;
+    const isFuture = cellDate > now && !isToday;
+
+    let cls = 'cal-cell';
+    if (isToday) cls += ' today';
+    if (isFuture) {
+      cls += ' future';
+      html += '<div class="' + cls + '">' + d + '</div>';
+      continue;
+    }
+
+    const hasPain = dayMap[ds] !== undefined;
+    const isFree = freeDays.includes(ds);
+
+    if (hasPain) {
+      const sn = dayMap[ds];
+      if (sn <= 2) cls += ' pain-low';
+      else if (sn === 3) cls += ' pain-mid';
+      else cls += ' pain-high';
+    } else if (isFree) {
+      cls += ' free';
+    } else {
+      cls += ' no-data';
+    }
+
+    html += '<div class="' + cls + '" onclick="onCalCellClick(\'' + ds + '\')">' + d + '</div>';
+  }
+
+  grid.innerHTML = html;
+
+  // Update "no headache today" button visibility
+  const freeBtn = document.getElementById('cal-free-btn');
+  const todayHasPain = dayMap[todayStr] !== undefined;
+  const todayIsFree = freeDays.includes(todayStr);
+  if (todayHasPain || todayIsFree) {
+    freeBtn.style.display = 'none';
+  } else {
+    freeBtn.style.display = '';
+  }
+}
+
+function markTodayFree() {
+  const now = new Date();
+  const ds = toDateStr(now.getFullYear(), now.getMonth(), now.getDate());
+  const freeDays = getFreeDays();
+  if (!freeDays.includes(ds)) {
+    freeDays.push(ds);
+    saveFreeDays(freeDays);
+  }
+  renderCalendar();
+}
+
+let backfillDate = null;
+
+function onCalCellClick(dateStr) {
+  const records = getRecords();
+  const freeDays = getFreeDays();
+  const hasPain = records.some(r => {
+    const d = new Date(r.startTime);
+    return toDateStr(d.getFullYear(), d.getMonth(), d.getDate()) === dateStr;
+  });
+  const isFree = freeDays.includes(dateStr);
+
+  // If already has data, do nothing (could add detail view later)
+  if (hasPain || isFree) return;
+
+  // Don't allow backfill on future dates
+  const parts = dateStr.split('-');
+  const cellDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+  const now = new Date();
+  now.setHours(23, 59, 59, 999);
+  if (cellDate > now) return;
+
+  backfillDate = dateStr;
+  const displayDate = parseInt(parts[1]) + '月' + parseInt(parts[2]) + '日';
+  document.getElementById('backfill-title').textContent = displayDate + ' 补记';
+  document.getElementById('backfill-h-title').textContent = displayDate + ' 补记头痛';
+  openSheet('sheet-backfill');
+}
+
+function backfillFree() {
+  if (!backfillDate) return;
+  const freeDays = getFreeDays();
+  if (!freeDays.includes(backfillDate)) {
+    freeDays.push(backfillDate);
+    saveFreeDays(freeDays);
+  }
+  closeSheet();
+  renderCalendar();
+}
+
+function backfillHeadache() {
+  closeSheet();
+  // Reset backfill headache sheet
+  currentSheetSeverity.backfill = null;
+  document.querySelectorAll('#backfill-severity .severity-opt').forEach(o => o.className = 'severity-opt');
+  document.querySelectorAll('#backfill-triggers .tag-btn').forEach(t => t.classList.remove('selected'));
+  document.getElementById('backfill-note').value = '';
+  setTimeout(() => openSheet('sheet-backfill-headache'), 350);
+}
+
+function submitBackfillHeadache() {
+  const severity = currentSheetSeverity.backfill;
+  if (!severity) {
+    const grid = document.getElementById('backfill-severity');
+    grid.style.animation = 'none';
+    grid.offsetHeight;
+    grid.style.animation = 'shake 0.4s ease';
+    setTimeout(() => grid.style.animation = '', 400);
+    return;
+  }
+  if (!backfillDate) return;
+
+  const parts = backfillDate.split('-');
+  const dateObj = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]), 12, 0, 0);
+
+  const rec = {
+    id: Date.now(),
+    startTime: dateObj.toISOString(),
+    endTime: dateObj.toISOString(),
+    severity,
+    triggers: getSelectedTags('backfill-triggers'),
+    reliefs: [],
+    startNote: document.getElementById('backfill-note').value.trim(),
+    endNote: '',
+    backfilled: true
+  };
+  const records = getRecords();
+  records.unshift(rec);
+  // Sort by startTime descending
+  records.sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
+  saveRecords(records);
+  closeSheet();
+  backfillDate = null;
+  updateUI();
+}
+
 // ===== Nav =====
 function switchView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -1227,6 +1718,7 @@ if ('serviceWorker' in navigator) {
 }
 
 // ===== Init =====
+initCalendar();
 updateUI();
 </script>
 
